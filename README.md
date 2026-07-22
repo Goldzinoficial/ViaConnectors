@@ -1,155 +1,155 @@
 # ViaConnectors
 
-Gerenciador universal de integrações para Claude — descubra, instale, verifique
-e desinstale MCPs, plugins e skills a partir de um único painel, tanto pelo
-navegador quanto por um app desktop nativo pra Windows.
+Universal integration manager for Claude — discover, install, verify and
+uninstall MCPs, plugins and skills from a single dashboard, in the browser or
+through a native Windows desktop app.
 
-Sem catálogo fixo: tudo é buscado ao vivo no GitHub, com cache local pra manter
-a navegação instantânea sem martelar a API.
+No fixed catalog: everything is fetched live from GitHub, with a local cache
+so browsing stays instant without hammering the API.
 
-## O que ele faz
+## What it does
 
-### Descoberta ao vivo
+### Live discovery
 
-- Busca contínua no GitHub por tópico, sem parar — enquanto a aba fica aberta,
-  a lista de conectores só cresce.
-- Pesquisa de texto instantânea: digitar acha qualquer coisa na hora, mesmo o
-  que ainda não estava no cache.
-- Rolagem infinita com paginação real, sem travar em limite de requisições —
-  respeita o rate limit do GitHub com uma janela deslizante e espera pelo
-  horário de reset informado pela própria API quando necessário.
-- Classificação automática entre **MCP**, **Plugin** e **Skill** — não confia
-  cegamente nos *topics* do GitHub (que autores preenchem de qualquer jeito):
-  lê a descrição do repositório procurando frases como *"MCP server"*,
-  *"a /nome skill"* ou *"Claude Code plugin"* antes de cair pro nome do repo
-  como último critério.
+- Continuous topic-based GitHub search that never stops — as long as the tab
+  stays open, the connector list keeps growing.
+- Instant text search: typing finds anything right away, even things that
+  weren't cached yet.
+- Real infinite-scroll pagination that never locks up on rate limits —
+  respects GitHub's limit with a sliding window and waits for the exact
+  reset time the API itself reports when needed.
+- Automatic classification between **MCP**, **Plugin** and **Skill** —
+  doesn't blindly trust GitHub *topics* (which authors fill in however they
+  like): reads the repo's description looking for phrases like *"MCP
+  server"*, *"a /name skill"* or *"Claude Code plugin"* before falling back
+  to the repo name as a last resort.
 
-### Instalação de verdade, não só um botão bonito
+### Real installs, not just a pretty button
 
-- **MCP**: antes de rodar qualquer coisa, o app lê o README do repositório
-  procurando o comando real documentado pelo autor — uma linha `claude mcp add`
-  pronta, um bloco JSON de configuração de cliente MCP, ou o link do pacote
-  npm de verdade (importante em monorepos, onde o pacote raiz não é o
-  executável). Só cai no chute de `npx -y <repo>` como último recurso — e se
-  não achar nenhum sinal confiável, **recusa a instalar** em vez de gravar uma
-  entrada quebrada na sua configuração.
-- **Plugin/Skill**: lê o `marketplace.json` real do repositório pra montar o
-  identificador `plugin@marketplace` corretamente — em vez de chutar que o
-  nome do plugin e do marketplace são sempre iguais ao nome do repo (não são,
-  na prática).
-- **Escopo global de verdade**: instala com `--scope user`, disponível em
-  qualquer projeto — não preso à pasta onde o processo aconteceu de rodar.
-- **Claude Desktop também**: ao instalar um MCP, o app espelha a mesma
-  configuração no `claude_desktop_config.json` do Claude Desktop (se estiver
-  instalado na máquina), preservando qualquer servidor que já esteja lá.
-- **Verificação pós-instalação**: depois de instalar, checa de verdade se o
-  servidor MCP conecta ou se o plugin ficou registrado — o botão mostra
-  "Installed ⚠" com o motivo, em vez de fingir sucesso quando o comando só
-  rodou sem erro mas não funciona.
-- **Repositórios que não são instaláveis** (ex: listas "awesome", coleções de
-  múltiplos itens sem um único ponto de instalação) são detectados e
-  recusados na hora, com uma mensagem clara, sem tentar nada.
-- **Instaladores de terceiros** (`pip`, `uv tool install`, `brew`,
-  `curl | bash`, `irm | iex`) são detectados no README e mostrados como um
-  comando pra copiar — o app **nunca** executa scripts remotos por conta
-  própria, nem com confirmação. Isso é intencional: baixar e rodar código não
-  revisado de qualquer repositório é o padrão clássico de ataque de
-  supply-chain, e nenhuma caixa de "tem certeza?" resolve esse problema de
-  verdade.
-- **Local de instalação**: automático (procura o Claude Code na máquina) ou
-  manual, apontando pro executável certo via seletor de arquivo nativo do
-  sistema.
-- **Desinstalar**: botão dedicado que remove o plugin/skill ou o servidor MCP
-  — dos dois lados, Claude Code e Claude Desktop.
-- **Autodetecção ao abrir**: o app lê a configuração real do Claude Code
-  (`.claude.json`, `known_marketplaces.json`, `installed_plugins.json`) assim
-  que carrega, pra marcar como "Installed" tudo que você já tem — mesmo o que
-  nunca foi instalado por aqui.
+- **MCP**: before running anything, the app reads the repo's README looking
+  for the real command the author documented — a ready-made `claude mcp add`
+  line, an MCP client config JSON block, or the actual npm package link
+  (important for monorepos, where the root package isn't the runnable one).
+  Only falls back to guessing `npx -y <repo>` as a last resort — and if it
+  can't find any reliable signal at all, it **refuses to install** instead of
+  writing a broken entry into your config.
+- **Plugin/Skill**: reads the repo's real `marketplace.json` to build the
+  `plugin@marketplace` identifier correctly — instead of guessing that the
+  plugin name and the marketplace name always match the repo name (in
+  practice, they often don't).
+- **Actually global scope**: installs with `--scope user`, available in
+  every project — not stuck to whatever directory the process happened to
+  run in.
+- **Claude Desktop too**: when installing an MCP, the app mirrors the same
+  config into Claude Desktop's `claude_desktop_config.json` (if it's
+  installed on the machine), preserving any server that's already there.
+- **Post-install verification**: after installing, it actually checks
+  whether the MCP server connects or the plugin got registered — the button
+  shows "Installed ⚠" with the reason instead of pretending success when the
+  command merely exited without error but doesn't actually work.
+- **Repos that aren't installable** (e.g. "awesome" lists, collections of
+  many items with no single install target) are detected and rejected
+  immediately, with a clear message, without attempting anything.
+- **Third-party installers** (`pip`, `uv tool install`, `brew`,
+  `curl | bash`, `irm | iex`) are detected in the README and shown as a
+  copyable command — the app **never** runs remote scripts on its own, not
+  even with a confirmation prompt. This is deliberate: downloading and
+  running unreviewed code from any repository is the classic supply-chain
+  attack pattern, and no "are you sure?" dialog actually fixes that problem.
+- **Install location**: automatic (finds Claude Code on the machine) or
+  manual, pointing at the right executable through the system's native file
+  picker.
+- **Uninstall**: a dedicated button that removes the plugin/skill or MCP
+  server — on both sides, Claude Code and Claude Desktop.
+- **Auto-detection on launch**: the app reads Claude Code's real
+  configuration (`.claude.json`, `known_marketplaces.json`,
+  `installed_plugins.json`) as soon as it loads, to mark everything you
+  already have as "Installed" — even things never installed through this
+  app.
 
-### Login e conta
+### Login and account
 
-- OAuth real do GitHub (Auth.js) pra elevar o rate limit de busca.
-- Token pessoal do GitHub opcional em Configurações, pra descoberta em
-  segundo plano mais rápida.
+- Real GitHub OAuth (Auth.js) to raise the search rate limit.
+- Optional personal GitHub token in Settings, for faster background
+  discovery.
 
-### App desktop
+### Desktop app
 
-Empacotado com Electron num `.exe` portátil pra Windows — não precisa de
-Node.js instalado separadamente (usa o próprio binário do Electron rodando
-como processo Node puro pra servir o Next.js). Ícone próprio, detecção de
-porta ocupada, log de diagnóstico em arquivo (útil porque um app com atalho
-não tem console pra imprimir nada).
+Packaged with Electron into a portable Windows `.exe` — no separately
+installed Node.js required (uses Electron's own binary running as a plain
+Node process to serve Next.js). Its own icon, occupied-port detection, a
+diagnostic log file (useful since an app launched from a shortcut has no
+console to print to).
 
-## Rodando localmente
+## Running locally
 
 ```bash
 npm install
-cp .env.example .env.local   # preencha GITHUB_ID/SECRET e NEXTAUTH_SECRET
+cp .env.example .env.local   # fill in GITHUB_ID/SECRET and NEXTAUTH_SECRET
 npm run dev
 ```
 
-Abra http://localhost:3000.
+Open http://localhost:3000.
 
-Para o login com GitHub funcionar, crie um OAuth App em
-https://github.com/settings/developers com callback
-`http://localhost:3000/api/auth/callback/github` e preencha `.env.local`.
-`GITHUB_TOKEN` (opcional) eleva o rate limit da busca de conectores.
+For GitHub login to work, create an OAuth App at
+https://github.com/settings/developers with callback
+`http://localhost:3000/api/auth/callback/github` and fill in `.env.local`.
+`GITHUB_TOKEN` (optional) raises the connector search rate limit.
 
-A instalação real de MCPs/plugins/skills exige o CLI `claude` (Claude Code)
-instalado e no PATH da máquina que roda o servidor Next.js.
+Actually installing MCPs/plugins/skills requires the `claude` CLI (Claude
+Code) installed and on the PATH of the machine running the Next.js server.
 
-## Gerando o app desktop (Windows)
+## Building the desktop app (Windows)
 
 ```bash
 npm run dist:win
 ```
 
-Empacota um `.exe` portátil em `dist-electron/`. **Atenção**: esse build
-carrega o seu `.env.local` (credenciais reais) pra dentro do executável, pra
-o login funcionar sem configurar de novo — não distribua esse `.exe`
-específico pra outras pessoas. `dist-electron/` está no `.gitignore` por
-esse exato motivo.
+Packages a portable `.exe` into `dist-electron/`. **Heads up**: this build
+bakes your `.env.local` (real credentials) into the executable, so login
+works without reconfiguring — don't hand that specific `.exe` to anyone
+else. `dist-electron/` is in `.gitignore` for exactly this reason.
 
-## Testes
+## Tests
 
 ```bash
 npm test
 ```
 
-## Arquitetura
+## Architecture
 
-- `app/` — páginas (App Router): landing, `login`, `dashboard`,
+- `app/` — pages (App Router): landing, `login`, `dashboard`,
   `connector/[id]`, `settings`
-- `app/api/connectors` — lista conectores (GitHub real, cai para mock se a
-  API do GitHub falhar/estourar rate limit)
-- `app/api/install` — instala um conector de verdade (MCP, plugin ou skill)
-- `app/api/uninstall` — desinstala, dos dois lados (Claude Code + Desktop)
-- `app/api/installed` — o que já está instalado na máquina, pra marcar os
-  cards certos ao carregar
-- `app/api/pick-claude-file` — abre o seletor de arquivo nativo do Windows
-- `app/api/auth/[...nextauth]` — OAuth do GitHub via Auth.js
-- `lib/github.ts` — busca e mapeia repositórios do GitHub para `Connector`
-  (loop de descoberta em segundo plano, servidor)
-- `lib/githubClient.ts` — a mesma busca, mas rodando no navegador (mais
-  rápida, cache local, pesquisa instantânea)
-- `lib/claudeCode.ts` — toda a lógica de instalação/desinstalação/verificação
-  real via CLI do Claude Code, extração de comandos do README, espelhamento
-  pro Claude Desktop
-- `lib/registry.ts` — fonte única de conectores (GitHub + fallback mock)
-- `lib/connectors.ts` — tipos e dados mock (fallback)
-- `lib/platforms.ts` — plataformas-alvo suportadas (hoje: só Claude Code)
-- `components/` — UI reutilizável (header, cards, abas/busca, tema, ícones,
-  scroll-reveal, seletor de plataforma, botão de instalação/desinstalação)
-- `electron/` — empacotamento do app desktop (processo principal, ícone,
-  cópia de assets estáticos, hook de pós-empacotamento)
+- `app/api/connectors` — lists connectors (real GitHub data, falls back to
+  mock if the GitHub API fails/hits its rate limit)
+- `app/api/install` — really installs a connector (MCP, plugin or skill)
+- `app/api/uninstall` — uninstalls it, on both sides (Claude Code + Desktop)
+- `app/api/installed` — what's already installed on the machine, to mark
+  the right cards on load
+- `app/api/pick-claude-file` — opens Windows' native file picker
+- `app/api/auth/[...nextauth]` — GitHub OAuth via Auth.js
+- `lib/github.ts` — fetches and maps GitHub repos to `Connector` (server-side
+  background discovery loop)
+- `lib/githubClient.ts` — the same search, but running in the browser
+  (faster, local cache, instant search)
+- `lib/claudeCode.ts` — all the real install/uninstall/verification logic
+  via the Claude Code CLI, README command extraction, Claude Desktop
+  mirroring
+- `lib/registry.ts` — single source of connectors (GitHub + mock fallback)
+- `lib/connectors.ts` — types and mock data (fallback)
+- `lib/platforms.ts` — supported target platforms (today: Claude Code only)
+- `components/` — reusable UI (header, cards, tabs/search, theme, icons,
+  scroll-reveal, platform picker, install/uninstall button)
+- `electron/` — desktop app packaging (main process, icon, static asset
+  copy, after-pack hook)
 
-Ver `docs/superpowers/specs/2026-07-12-viaconnectors-ui-shell-design.md`
-para o design da interface.
+See `docs/superpowers/specs/2026-07-12-viaconnectors-ui-shell-design.md`
+for the interface design.
 
-## Segurança
+## Security
 
-- Nenhuma credencial fica hardcoded no código — tudo vem de variáveis de
-  ambiente (`.env.local`, nunca commitado).
-- O app nunca executa scripts remotos de terceiros automaticamente, mesmo
-  quando encontra o comando no README de um repositório — sempre mostra pra
-  você copiar e rodar por conta própria.
+- No credentials are hardcoded in the code — everything comes from
+  environment variables (`.env.local`, never committed).
+- The app never automatically runs third-party remote scripts, even when it
+  finds the command in a repo's README — it always shows it to you to copy
+  and run yourself.
