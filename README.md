@@ -1,4 +1,4 @@
-# ViaConnectors
+# ViaConnectors 0.1.0
 
 Universal integration manager for Claude — discover, install, verify and
 uninstall MCPs, plugins and skills from a single dashboard, in the browser or
