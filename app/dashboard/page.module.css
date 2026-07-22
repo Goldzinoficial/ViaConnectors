@@ -1,0 +1,62 @@
+.main {
+  padding: 28px 24px 40px;
+}
+.hero {
+  margin-bottom: 20px;
+}
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  letter-spacing: 0.01em;
+  color: var(--muted-2);
+  background: var(--pill-bg);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 5px 12px 5px 10px;
+  margin-bottom: 14px;
+}
+.eyebrowDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #34d399;
+  box-shadow: 0 0 0 rgba(52, 211, 153, 0.5);
+  animation: heroPulse 2s ease infinite;
+  flex-shrink: 0;
+}
+@keyframes heroPulse {
+  0% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.45); }
+  70% { box-shadow: 0 0 0 6px rgba(52, 211, 153, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); }
+}
+.title {
+  font-size: 26px;
+  margin: 0 0 4px;
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 28px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+.settings {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--muted);
+  background: none;
+  border: none;
+}
+.settingsIcon {
+  width: 15px;
+  height: 15px;
+}
+.version {
+  font-size: 11px;
+  color: var(--muted);
+}

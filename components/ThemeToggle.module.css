@@ -1,0 +1,15 @@
+.toggle {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--pill-bg);
+}
+.icon {
+  width: 15px;
+  height: 15px;
+  color: var(--fg);
+}

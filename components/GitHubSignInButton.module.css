@@ -1,0 +1,16 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--install-bg);
+  color: var(--install-fg);
+  border: none;
+  border-radius: 8px;
+  padding: 12px 22px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.icon {
+  width: 17px;
+  height: 17px;
+}

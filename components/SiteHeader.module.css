@@ -1,0 +1,53 @@
+.header {
+  border-bottom: 1px solid var(--border);
+}
+.inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 64px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: -0.02em;
+}
+.mark {
+  width: 22px;
+  height: 22px;
+}
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.navLink {
+  font-size: 13px;
+  color: var(--muted);
+}
+.navLink:hover {
+  color: var(--fg);
+}
+.iconBtn {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--pill-bg);
+  color: var(--muted);
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.iconBtn:hover {
+  color: var(--fg);
+  border-color: var(--accent);
+}
+.settingsIcon {
+  width: 15px;
+  height: 15px;
+}

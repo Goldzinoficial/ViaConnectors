@@ -1,0 +1,19 @@
+node_modules
+.next
+.superpowers
+next-env.d.ts
+*.tsbuildinfo
+
+# Secrets — never publish real OAuth credentials or session secrets.
+.env.local
+.env*.local
+
+# Packaged builds — the portable .exe has your real .env.local baked into
+# it (see electron/copy-static.js), and win-unpacked is a huge binary tree
+# that doesn't belong in source control either way.
+dist-electron
+
+# Claude Code's own local session/tooling state (permission history with
+# real file paths, session memory, a Python venv) — none of it is part of
+# the app itself.
+.claude

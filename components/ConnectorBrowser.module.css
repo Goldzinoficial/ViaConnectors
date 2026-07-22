@@ -1,0 +1,195 @@
+.liveCount {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 0 0 12px;
+}
+.searchRow {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.search {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--pill-bg);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 9px 12px;
+}
+.searchIcon {
+  width: 14px;
+  height: 14px;
+  opacity: 0.5;
+  flex-shrink: 0;
+  color: var(--fg);
+}
+.search input {
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--fg);
+  font-size: 12.5px;
+  width: 100%;
+}
+.advBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--pill-bg);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 9px 13px;
+  font-size: 12px;
+  color: var(--fg);
+}
+.advIcon {
+  width: 14px;
+  height: 14px;
+}
+.advPanel {
+  margin-bottom: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+.advField span {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 5px;
+}
+.advField input,
+.advField select {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 9px;
+  font-size: 12px;
+  color: var(--fg);
+}
+.tabs {
+  display: flex;
+  gap: 4px;
+  background: var(--pill-bg);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 3px;
+  width: fit-content;
+  margin-bottom: 16px;
+}
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 6px;
+  color: var(--muted);
+  background: none;
+  border: none;
+}
+.tabIcon {
+  width: 13px;
+  height: 13px;
+}
+.tabActive {
+  background: var(--install-bg);
+  color: var(--install-fg);
+  box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.3);
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.cardIn {
+  /* Grid items don't shrink below their content's natural width by default
+     (min-width: auto) — a description with one long unbroken run of text
+     would otherwise widen the whole grid and force horizontal scrolling. */
+  min-width: 0;
+  animation: vcCardIn 0.4s ease both;
+}
+@keyframes vcCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.sentinel {
+  height: 1px;
+}
+.empty {
+  color: var(--muted);
+  font-size: 13px;
+  grid-column: 1 / -1;
+}
+
+/* Discovery status bar */
+.statusBar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  margin-bottom: 12px;
+  background: rgba(59, 130, 246, 0.08);
+  border: 1px solid rgba(59, 130, 246, 0.18);
+  border-radius: 9px;
+  font-size: 12px;
+  color: var(--accent);
+}
+.statusPulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: vcPulse 1.4s ease infinite;
+  flex-shrink: 0;
+}
+@keyframes vcPulse {
+  0%, 100% { opacity: 0.4; transform: scale(0.85); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+.statusText {
+  opacity: 0.9;
+}
+
+/* Rate-limit indicator */
+.rateBar {
+  display: flex;
+  align-items: center;
+  padding: 5px 14px;
+  margin-bottom: 12px;
+  font-size: 11px;
+  color: var(--muted);
+}
+.rateLabel {
+  opacity: 0.7;
+}
+
+@media (max-width: 860px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 560px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .advPanel {
+    grid-template-columns: 1fr;
+  }
+}

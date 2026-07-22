@@ -1,0 +1,49 @@
+{
+  "name": "viaconnectors",
+  "version": "0.1.0",
+  "private": true,
+  "main": "electron/main.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test": "node --test",
+    "build:standalone": "next build && node electron/copy-static.js",
+    "electron": "npm run build:standalone && electron .",
+    "dist:win": "npm run build:standalone && electron-builder --win portable"
+  },
+  "dependencies": {
+    "next": "latest",
+    "next-auth": "^4.24.7",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-markdown": "^10.1.0",
+    "rehype-raw": "^7.0.0",
+    "rehype-sanitize": "^6.0.0",
+    "remark-gfm": "^4.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "electron": "^43.1.1",
+    "electron-builder": "^26.15.3",
+    "png-to-ico": "^3.0.2",
+    "typescript": "^5"
+  },
+  "build": {
+    "appId": "com.viaconnectors.app",
+    "productName": "ViaConnectors",
+    "directories": {
+      "output": "dist-electron"
+    },
+    "files": [
+      "electron/**/*"
+    ],
+    "afterPack": "electron/after-pack.js",
+    "win": {
+      "target": "portable",
+      "icon": "electron/icon.ico"
+    }
+  }
+}

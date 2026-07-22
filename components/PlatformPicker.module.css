@@ -1,0 +1,37 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 12px 14px;
+  font-size: 13px;
+  color: var(--fg);
+  text-align: left;
+}
+.item:disabled {
+  color: var(--muted);
+  cursor: not-allowed;
+}
+.itemActive {
+  border-color: var(--accent);
+}
+.badge {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  background: var(--pill-bg);
+  border-radius: 20px;
+  padding: 3px 9px;
+}
+.check {
+  color: var(--accent);
+  font-weight: 700;
+}

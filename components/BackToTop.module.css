@@ -1,0 +1,31 @@
+.button {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--install-bg);
+  color: var(--install-fg);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  z-index: 40;
+  animation: vcFadeIn 0.2s ease;
+}
+.icon {
+  width: 17px;
+  height: 17px;
+}
+@keyframes vcFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
