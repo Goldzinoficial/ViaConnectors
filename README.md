@@ -7,6 +7,15 @@ through a native Windows desktop app.
 No fixed catalog: everything is fetched live from GitHub, with a local cache
 so browsing stays instant without hammering the API.
 
+## Download
+
+[**⬇ Download for Windows (portable .exe)**](https://github.com/Goldzinoficial/ViaConnectors/releases/latest)
+
+No install required — just run it. This public build ships without GitHub
+login pre-configured (see [Security](#security)): browsing, search and
+installing all work anonymously out of the box; sign in with your own
+GitHub OAuth App if you want a higher search rate limit.
+
 ## What it does
 
 ### Live discovery
@@ -110,6 +119,13 @@ bakes your `.env.local` (real credentials) into the executable, so login
 works without reconfiguring — don't hand that specific `.exe` to anyone
 else. `dist-electron/` is in `.gitignore` for exactly this reason.
 
+To build a version safe to distribute publicly (no personal credentials),
+use the public variant instead:
+
+```bash
+npm run dist:win:public
+```
+
 ## Tests
 
 ```bash
@@ -153,3 +169,11 @@ for the interface design.
 - The app never automatically runs third-party remote scripts, even when it
   finds the command in a repo's README — it always shows it to you to copy
   and run yourself.
+- The public release `.exe` (see [Download](#download)) is built with
+  `npm run dist:win:public`, which never touches `.env.local` — it only
+  generates a fresh, random `NEXTAUTH_SECRET` at build time so the app can
+  start. It ships with no GitHub OAuth Client ID/Secret at all, so "Sign in
+  with GitHub" isn't configured out of the box; everything else works
+  anonymously. `npm run dist:win` (personal build) is different — it bakes
+  in *your own* `.env.local`, which is why `dist-electron/` stays out of
+  version control.

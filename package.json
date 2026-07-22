@@ -9,8 +9,10 @@
     "start": "next start",
     "test": "node --test",
     "build:standalone": "next build && node electron/copy-static.js",
+    "build:standalone:public": "next build && node electron/copy-static-public.js",
     "electron": "npm run build:standalone && electron .",
-    "dist:win": "npm run build:standalone && electron-builder --win portable"
+    "dist:win": "npm run build:standalone && electron-builder --win portable",
+    "dist:win:public": "npm run build:standalone:public && electron-builder --win portable"
   },
   "dependencies": {
     "next": "latest",
